@@ -9,9 +9,12 @@ import { StayPrimaryLandscape } from "@mui/icons-material";
 function App() {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
-  
+  const existingImage = JSON.parse(localStorage.getItem("images")) || []
+  const [image, setImage] = useState(existingImage)
   const [captured, setCaptured] = useState(false)
   
+  
+
   const getStream = () => {
     if(!captured){
       navigator.mediaDevices.getUserMedia({
@@ -28,7 +31,7 @@ function App() {
         console.error(err);
       })
     }else {
-      console.log(captured);
+      return 
     }
     
   }
@@ -48,7 +51,14 @@ function App() {
     let ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width,height);
     setCaptured(true)
-    console.log(ctx);
+    const canvas = document.getElementById("canvas")
+    
+    const date = new Date();
+    const stringDate = date.toISOString().slice(0,10).replace(/-/g,"-");
+    const imageData = ({src: canvas.toDataURL("image/png"), date: stringDate});
+    
+    setImage(imageData)
+     
     
   }
 
@@ -63,8 +73,10 @@ function App() {
 
   
   useEffect(() => {
+    localStorage.setItem("images", JSON.stringify(image))
     getStream()
-  },[videoRef,captured])
+    
+  },[videoRef,captured,image])
 
 
 
@@ -84,7 +96,7 @@ function App() {
         </div>}
         
         <div className={customClass} >
-        <canvas  ref={photoRef}></canvas>
+        <canvas id="canvas" ref={photoRef}></canvas>
         </div>
       </div>
       <div className='button__Container'>
@@ -110,3 +122,4 @@ function App() {
 }
 
 export default App;
+//<Gallery image={image} />
