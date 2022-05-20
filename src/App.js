@@ -10,7 +10,6 @@ function App() {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
   
-  
   const [captured, setCaptured] = useState(false)
   
   const getStream = () => {
@@ -22,6 +21,7 @@ function App() {
         let video = videoRef.current;
         video.srcObject = stream;
         video.play();
+        
   
       })
       .catch(err => {
@@ -48,14 +48,23 @@ function App() {
     let ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width,height);
     setCaptured(true)
-
+    console.log(ctx);
     
   }
 
-  console.log(videoRef);
+  const newPicture = () => {
+    let photo = photoRef.current;
+    let ctx = photo.getContext("2d");
+
+    ctx.clearRect(0,0,photo.width, photo.height)
+    setCaptured(false)
+    getStream()
+  }
+
+  
   useEffect(() => {
     getStream()
-  },[videoRef])
+  },[videoRef,captured])
 
 
 
@@ -79,13 +88,21 @@ function App() {
         </div>
       </div>
       <div className='button__Container'>
-      <Button onClick={!captured ? takePhoto : getStream} variant="outlined" startIcon={<CameraAltIcon />} style={{
+     {!captured && <Button onClick={takePhoto} variant="outlined" startIcon={<CameraAltIcon />} style={{
         color: "white",
         fontSize: "20px",
         
       }}>
-  {!captured  ? "Föreviga ett ögonblick" : "Fånga ett nytt ögonblick" }
-</Button>
+  Föreviga ett ögonblick
+  </Button>}
+
+  {captured && <Button onClick={newPicture} variant="outlined" startIcon={<CameraAltIcon />} style={{
+        color: "white",
+        fontSize: "20px",
+        
+      }}>
+  Fånga ett nytt ögonblick
+</Button>}
       </div>
       
     </div>
@@ -93,12 +110,3 @@ function App() {
 }
 
 export default App;
-
-
-/**
- * 
- * 
- * 
- * 
- * 
- */
