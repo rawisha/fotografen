@@ -1,9 +1,7 @@
 # To-Do List
 
--Fix Gallery state and
--Fix localstorage delete based on index
--Fix Gallery Update after localstorage Delete
--Add service-worker
+-FIX offline mode HTML
+-Setup API and localstorage sync
 -Upload localStorage item to API once online
 -Fix CSS !!!
 -More Camera Fucntios ?!?!?

@@ -5,24 +5,28 @@ import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 function Gallery() {
     let images;
-    const [local,setLocal] = useState(localStorage.getItem("images") || [])
-    
+    const initLocal = JSON.parse(localStorage.getItem("images") || [])
+    const [local, setLocal] = useState(initLocal)
     
     if(local.length !== 0){
-        images = JSON.parse(local);
+        images = local;
     }
     
-    
+    console.log(local);
 
     let navigate = useNavigate();
     const data = []
-
+    
+    
     const deleteLocal = (key,data) => {
-        localStorage.removeItem("images",images[key])
-        console.log(images.length);
+      const updatedImages =  local.filter(i => data.id !== i.id)
+       setLocal([...updatedImages])
+       console.log(local)
     }
 
-   
+   useEffect(() => {
+       localStorage.setItem('images', JSON.stringify(local))
+   },[local])
 
   return (
     <div className='Gallery'>

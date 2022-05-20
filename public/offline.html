@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Offline version of the app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link
@@ -20,21 +20,11 @@
 />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
-    <title>React App</title>
+    <title>Fotografen | NO internet</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script>
-      if ('serviceWorker' in navigator) {
-    try {
-      navigator.serviceWorker.register('./service-worker.js');
-      console.log("Hell yea, service-worker is registered")
-    } catch (error) {
-      console.log('Opppsiee, något gick fel!', error);
-    }
-  }
-
-    </script>
+    <div id="root1"></div>
+    
   </body>
 </html>

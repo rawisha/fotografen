@@ -55,9 +55,12 @@ const Picture = () => {
     
     const date = new Date();
     const stringDate = date.toISOString().slice(0,10).replace(/-/g,"-");
-    const imageData = ({src: canvas.toDataURL("image/png"), date: stringDate});
+    const id = image.length;
+    const imageData = ({id:id,src: canvas.toDataURL("image/png"), date: stringDate});
     
+
     setImage([...image,imageData])
+    localStorage.setItem('images', JSON.stringify(imageData));
 
     
   }
