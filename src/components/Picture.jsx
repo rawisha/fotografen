@@ -1,15 +1,17 @@
 import React,{useRef, useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import AppsIcon from '@mui/icons-material/Apps';
 import Button from '@mui/material/Button';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import classNames from "classnames";
 
 const Picture = () => {
-    const videoRef = useRef(null);
+  const videoRef = useRef(null);
   const photoRef = useRef(null);
   const existingImage = JSON.parse(localStorage.getItem("images")) || []
   const [image, setImage] = useState(existingImage)
   const [captured, setCaptured] = useState(false)
+  let navigate = useNavigate();
   
   
 
@@ -56,7 +58,7 @@ const Picture = () => {
     const imageData = ({src: canvas.toDataURL("image/png"), date: stringDate});
     
     setImage([...image,imageData])
-     
+
     
   }
 
@@ -82,8 +84,9 @@ const Picture = () => {
   return (
     <div className='App'>
           <div className='galleryIcon__Container'>
-      <AppsIcon  style={{ fontSize:45,color: 'white' }} 
+      <AppsIcon onClick={() => {navigate("/gallery")}}  style={{ fontSize:45,color: 'white', cursor:'pointer' }} 
        />
+       
       </div>
       
       <div className='stream__Container'>
