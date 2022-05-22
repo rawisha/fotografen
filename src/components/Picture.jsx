@@ -4,6 +4,7 @@ import AppsIcon from '@mui/icons-material/Apps';
 import Button from '@mui/material/Button';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import classNames from "classnames";
+import icon from "../asset/icon.png"
 
 const Picture = () => {
   const videoRef = useRef(null);
@@ -12,6 +13,22 @@ const Picture = () => {
   const [image, setImage] = useState(existingImage)
   const [captured, setCaptured] = useState(false)
   let navigate = useNavigate();
+  
+
+
+  const NotificationHandler = () => {
+    if(Notification.permission === "granted"){
+      new Notification("Bröllopsfotografen", {
+        body: "Picture saved !",
+        icon: icon
+      })
+    } else if (Notification.permission !== "denied"){
+      Notification.requestPermission().then(permission => {
+        console.log(permission);
+      })
+    }
+   
+  }
   
   
 
@@ -61,7 +78,7 @@ const Picture = () => {
 
     setImage([...image,imageData])
     localStorage.setItem('images', JSON.stringify(imageData));
-
+    NotificationHandler()
     
   }
 
@@ -77,9 +94,9 @@ const Picture = () => {
   
   useEffect(() => {
     localStorage.setItem("images", JSON.stringify(image))
-    getStream()
+    getStream(); 
     
-  },[videoRef,captured,image])
+  },[videoRef,captured,image]) 
 
  
 

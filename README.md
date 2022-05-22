@@ -1,7 +1,7 @@
 # To-Do List
 
--FIX offline mode HTML
--Setup API and localstorage sync
+-Better code for Notification !!
+-Setup API
 -Upload localStorage item to API once online
 -Fix CSS !!!
 -More Camera Fucntios ?!?!?

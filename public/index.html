@@ -14,27 +14,18 @@
   rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
 />
+<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
 />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+   
     
-    <title>React App</title>
+    <title>Bröllopsfotografen</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      if ('serviceWorker' in navigator) {
-    try {
-      navigator.serviceWorker.register('./service-worker.js');
-      console.log("Hell yea, service-worker is registered")
-    } catch (error) {
-      console.log('Opppsiee, något gick fel!', error);
-    }
-  }
 
-    </script>
   </body>
 </html>

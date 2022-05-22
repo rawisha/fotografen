@@ -1,44 +1,37 @@
-const CACHE_NAME = "version-1"
-const urlToCache = [ 'index.html', 'offline.html' ]
-
-const self = this;
-
-
-// Install Service Worker
-
-self.addEventListener('install', (e) => {
-    e.waitUntil(
-        caches.open(CACHE_NAME)
-        .then((cache) => {
-            console.log('Opened cache');
-
-            return cache.addAll(urlToCache);
+const cacheData = "appV1";
+const dataToCache = [
+'manifest.json',
+'static/js/main.95991a24.js',
+'static/js/bundle.js',
+'favicon.ico',
+'/gallery',
+'/']
+this.addEventListener("install",(event) =>{
+    
+    event.waitUntil(
+        caches.open(cacheData).then((cache) => {
+            cache.addAll(dataToCache)
         })
+        
     )
 
 })
 
-
-// Listen for Request 
-
-self.addEventListener('fetch', (e) => {
-    e.respondWith(
-        caches.match(e.request)
-        .then(async () => {
-            try {
-                return await fetch(e.request);
-            } catch {
-                return await caches.match('offline.html');
-            }
-        })
-    )
-
+this.addEventListener("fetch",(event) => {
+    if(!navigator.onLine){
+        event.respondWith(
+            caches.match(event.request)
+            .then((resp) => {
+                if(resp){
+                    return resp
+                }
+            })
+        )
+    }
+    
 })
 
-
-// Activate the  Service Worker
-
-self.addEventListener('activate', (e) => {
+this.addEventListener('activate', (e) => {
     const cacheWhitelist = [];
     cacheWhitelist.push(CACHE_NAME);
 

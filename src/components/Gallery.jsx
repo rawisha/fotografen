@@ -12,16 +12,14 @@ function Gallery() {
         images = local;
     }
     
-    console.log(local);
 
     let navigate = useNavigate();
-    const data = []
     
     
     const deleteLocal = (key,data) => {
       const updatedImages =  local.filter(i => data.id !== i.id)
        setLocal([...updatedImages])
-       console.log(local)
+       
     }
 
    useEffect(() => {

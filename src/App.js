@@ -7,7 +7,7 @@ import Notfound from './components/Notfound';
 
 
 function App() {
-  
+  Notification.requestPermission()
   return (
     <div className="App">
       
