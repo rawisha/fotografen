@@ -14,8 +14,9 @@ async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
       await navigator.serviceWorker.register('service-worker.js');
+      await navigator.serviceWorker.getRegistration()
     } catch (error) {
-      console.log('Så man göra men det är fel!', error);
+      console.log('Service worked not installed', error);
     }
   }
 }

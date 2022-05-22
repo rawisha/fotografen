@@ -73,14 +73,16 @@ const Picture = () => {
     const date = new Date();
     const stringDate = date.toISOString().slice(0,10).replace(/-/g,"-");
     const id = image.length;
-    const imageData = ({id:id,src: canvas.toDataURL("image/png"), date: stringDate});
+    const imageData = ({id:id,src: canvas.toDataURL("image/webp"), date: stringDate});
     
-
+    console.log(canvas.url)
     setImage([...image,imageData])
     localStorage.setItem('images', JSON.stringify(imageData));
     NotificationHandler()
     
   }
+
+  
 
   const newPicture = () => {
     let photo = photoRef.current;
