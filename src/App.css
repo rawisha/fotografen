@@ -8,6 +8,13 @@ body{
   background-color: #2A2E30;
 }
 
+.Gallery {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+}
 .galleryIcon__Container {
   display: flex;
   justify-content: flex-end;
@@ -26,7 +33,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid red 2px;
+  border: solid black 1px;
   width: 342px;
   height: 291px;
 }
@@ -38,31 +45,21 @@ body{
 }
 
 .picture__Grid {
-  display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
-  gap: 10px 10px; 
+  display: grid;
+  margin-top: 15px;
+  grid-template-columns:repeat(2,1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
   grid-template-areas: 
-    ". ."
-    ". ."; 
-    justify-content: center; 
-    align-content: center; 
-    justify-items: center; 
-    align-items: center; 
-    margin-top: 80px;
-    margin-right: 10px;
-    margin-left: 10px;
+      ". .";
 }
+
 
 
 .picture__box {
   display: flex;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 
 img {
@@ -94,17 +91,18 @@ h3 {
 
 p{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  flex-direction: row;
-  
+  padding-bottom: 15px;
 }
 
 
 .deleteButton__Container{
-  position: absolute;
-  top: 0%;
-  right: 11vw;
+  display: flex;
+  flex-direction:column;
+  align-items: flex-end;
+  margin-right: 2px;
+  padding-top: 10px;
   cursor: pointer;
 
 }
@@ -124,32 +122,45 @@ h2{
 }
 
 .image__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 210px;
-  height: 250px;
+  height: 240px;
   border: solid 2px white;
   border-radius: 5px;
 }
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
 @media only screen and (min-width: 900px) {
   .picture__Grid {
+    margin-top: 20px;
     display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
-    gap: 10px 0px; 
-    grid-template-areas: 
-      ". . . . ."
-      ". . . . ."
-      ". . . . ."; 
-  }
-  .deleteButton__Container{
-    position: absolute;
-    top: 0%;
-    right: 3.4vw;
-    cursor: pointer;
-  
+    grid-template-columns: repeat(3,1fr); 
   }
   .image__container {
     width: 250px;
-    height: 350;
+    height: 280px;
+    border: solid 2px white;
+    border-radius: 5px;
+  }
+}
+
+
+@media only screen and (min-width: 1024px) {
+  .picture__Grid {
+    margin-top: 20px;
+    display: grid; 
+    grid-template-columns: repeat(5,1fr); 
+  }
+  .image__container {
+    width: 250px;
+    height: 280px;
     border: solid 2px white;
     border-radius: 5px;
   }

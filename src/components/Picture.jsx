@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import classNames from "classnames";
 import icon from "../asset/icon.png"
+const API_KEY = process.env.REACT_APP_API_KEY;
+const BIN_KEY = process.env.REACT_APP_BIN_KEY
+let req = new XMLHttpRequest();
 
 const Picture = () => {
   const videoRef = useRef(null);
@@ -12,8 +15,15 @@ const Picture = () => {
   const existingImage = JSON.parse(localStorage.getItem("images")) || []
   const [image, setImage] = useState(existingImage)
   const [captured, setCaptured] = useState(false)
+  let online = useRef(navigator.onLine)
   let navigate = useNavigate();
+ 
   
+
+
+  
+ 
+
 
 
   const NotificationHandler = () => {
@@ -53,7 +63,22 @@ const Picture = () => {
     
   }
 
+  // API CALLS AND SYNC
+  const uploadToBin = () => {
+    req.open("POST", `https://api.jsonbin.io/v3/b/`, true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.setRequestHeader("X-Master-Key", API_KEY);
+    req.setRequestHeader("X-Collection-Id", "62899132449a1f3821e8a9a0");
+    req.setRequestHeader("X-Bin-Name", "localStorage-Sync");
   
+    const dataUpload = {
+      "images": existingImage
+    }
+  
+    req.send(JSON.stringify(dataUpload));
+    
+    }
+ 
 
   const takePhoto = () => {
     const width = 342;
@@ -75,10 +100,16 @@ const Picture = () => {
     const id = image.length;
     const imageData = ({id:id,src: canvas.toDataURL("image/webp"), date: stringDate});
     
-    console.log(canvas.url)
+    
     setImage([...image,imageData])
     localStorage.setItem('images', JSON.stringify(imageData));
     NotificationHandler()
+    
+    if(navigator.onLine){
+      uploadToBin()
+    }else{
+      return
+    }
     
   }
 
@@ -93,6 +124,8 @@ const Picture = () => {
     getStream()
   }
 
+
+  // USE EFFECTS
   
   useEffect(() => {
     localStorage.setItem("images", JSON.stringify(image))
@@ -101,6 +134,12 @@ const Picture = () => {
   },[videoRef,captured,image]) 
 
  
+
+ if(online.current){
+  console.log("online")}else{
+    console.log("offline");
+  }
+
 
   let customClass = classNames({'stream__Box status': !captured, 'stream__Box':captured })
   return (

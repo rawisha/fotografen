@@ -40,13 +40,19 @@ function Gallery() {
         images.map((image,index) => (
             
             <div className="picture__box" key={index}>
-                <div className="deleteButton__Container">
+            <div className="image__container">
+            
+            <div className="deleteButton__Container">
                 <HighlightOffTwoToneIcon style={{ fontSize:40,color: 'white', cursor:'pointer' }} onClick={() => deleteLocal(index,image)}/>
                 </div>
-            <div className="image__container">
+                
             <img  src={image.src} alt={image.date} />
-                <p style={{color: "white"}}>{image.date}</p>
+            
+            <div className="title">
+            <p style={{color: "white"}}>{image.date}</p>
             </div>
+            </div>
+            
             
             
         </div>
