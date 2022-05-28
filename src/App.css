@@ -44,7 +44,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 15vh;
+  margin-top: 5rem;
 }
 
 .picture__Grid {
