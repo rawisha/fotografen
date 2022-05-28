@@ -37,6 +37,8 @@ body{
   border: solid black 1px;
   width: 342px;
   height: 291px;
+  object-fit: contain;
+  overflow: hidden;
 }
 .button__Container {
   display: flex;
@@ -92,7 +94,7 @@ h3 {
   align-items: center;
 
   color: white;
-  font-size: 25px;
+  font-size: 15px;
 }
 
 p{
@@ -164,9 +166,9 @@ h2{
     grid-template-columns: repeat(5,1fr); 
   }
   .deleteButton__Container{
-
     padding-top: 10px;
-    
-  
+  }
+  h3 {
+    font-size: 25px;
   }
 }
