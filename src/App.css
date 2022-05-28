@@ -27,7 +27,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 25vh;
+  margin-top: 10vh;
 }
 
 .stream__Box {
@@ -170,5 +170,9 @@ h2{
   }
   h3 {
     font-size: 25px;
+  }
+
+  .stream__Container {
+    margin-top: 25vh;
   }
 }
