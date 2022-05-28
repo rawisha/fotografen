@@ -40,6 +40,7 @@ function App() {
   useEffect(() => {
     Notification.requestPermission()
   },[])
+  
   return (
     <div className="App">
       
