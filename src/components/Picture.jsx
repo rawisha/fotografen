@@ -98,8 +98,8 @@ const Picture = () => {
  
 
   const takePhoto = async () => {
-    const width = 342;
-    const height = 291;
+    const width = 350;
+    const height = 350;
 
     let video = videoRef.current;
     let photo = photoRef.current;
