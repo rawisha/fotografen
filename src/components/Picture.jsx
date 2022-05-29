@@ -41,7 +41,7 @@ const Picture = () => {
     if (!captured) {
       navigator.mediaDevices
         .getUserMedia({
-          video: { width: 1920, height: 1080 },
+          video: { width: 450, height: 350 },
         })
         .then(stream => {
           let video = videoRef.current;
