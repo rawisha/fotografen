@@ -36,7 +36,7 @@ body{
   justify-content: center;
   border: solid black 1px;
   width: 350px;
-  height: 350px;
+  height: 351px;
   object-fit: contain;
   overflow: hidden;
 }
