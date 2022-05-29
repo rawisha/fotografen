@@ -10,6 +10,8 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const BIN_KEY = process.env.REACT_APP_BIN_KEY;
 
 
+
+
 const Picture = () => {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
@@ -21,35 +23,42 @@ const Picture = () => {
   let navigate = useNavigate();
   
   
-  
 
   
-  const NotificationHandler = async () => {
-    const permission = await Notification.requestPermission();
-    console.log(permission)
-    if (permission === "granted") {
+
+async function syncMessagesLater() {
+  const registration = await navigator.serviceWorker.ready;
+  try {
+    await registration.sync.register('sync-messages');
+  } catch {
+    console.log('Background Sync could not be registered!');
+  }
+}
+
+syncMessagesLater()
+  
+
+
+navigator.serviceWorker.ready.then(registration => {
+  registration.sync.getTags().then(tags => {
+    if (tags.includes('sync-messages'))
+      console.log('Messages sync already requested');
+  });
+});
+
+
+  const NotificationHandler = () => {
+    if (Notification.permission === "granted") {
       new Notification("Bröllopsfotografen", {
         body: "Picture saved !",
         icon: icon,
       });
-    } else if (permission !== "denied") {
+    } else if (Notification.permission !== "denied") {
       Notification.requestPermission().then(permission => {
         console.log(permission);
       });
     }
   };
-
-  const subToPush = async () => {
-    const serviceWorker = await navigator.serviceWorker.ready;
-
-    const subscription = await serviceWorker.pushManager.subscribe({
-      //skickar med ett objekt
-      userVisibleOnly: true,
-      applicationServerKey: 'BBplhidqNPeLGzhIeXbQf736vi_WOJA3_b8mPS_0a1IWE77wQzojHmgLRw9ks4AQ3NpbSrSOgaD9Sqw4ghTlVfA'
-    })
-
-    console.log(JSON.stringify(subscription));
-  }
 
   const getStream = () => {
     if (!captured) {
@@ -138,11 +147,7 @@ const Picture = () => {
     
     setImage([...image, imageData]);
     localStorage.setItem("images", JSON.stringify(imageData));
-
-    const permission = await NotificationHandler();
-    if (permission){
-      subToPush()
-    };
+    NotificationHandler();
     
     if(online){
     await updateApi(imageData);

@@ -175,4 +175,7 @@ h2{
   .stream__Container {
     margin-top: 25vh;
   }
+  img {
+    width: 80px;
+  }
 }
