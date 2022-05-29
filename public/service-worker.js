@@ -42,9 +42,3 @@ self.addEventListener('activate', (e) => {
     )
 })
 
-
-self.addEventListener('sync', event => {
-    if (event.tag == 'sync-messages') {
-      event.waitUntil(sendOutboxMessages());
-    }
-  });

@@ -21,30 +21,6 @@ const Picture = () => {
   const [online,setOnline] = useState(true)
   const [temp,setTemp] = useState({})
   let navigate = useNavigate();
-  
-  
-
-  
-
-async function syncMessagesLater() {
-  const registration = await navigator.serviceWorker.ready;
-  try {
-    await registration.sync.register('sync-messages');
-  } catch {
-    console.log('Background Sync could not be registered!');
-  }
-}
-
-syncMessagesLater()
-  
-
-
-navigator.serviceWorker.ready.then(registration => {
-  registration.sync.getTags().then(tags => {
-    if (tags.includes('sync-messages'))
-      console.log('Messages sync already requested');
-  });
-});
 
 
   const NotificationHandler = () => {
