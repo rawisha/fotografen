@@ -41,3 +41,12 @@ self.addEventListener('activate', (e) => {
             ))
     )
 })
+
+self.addEventListener('push', (event) => {
+    //använder notisapi
+    
+    self.registration.showNotification('Push notis', {
+      //notisen innehåller det vi skrivit i push service index
+      body: event.data.text()
+    });
+  });
