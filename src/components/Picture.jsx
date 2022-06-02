@@ -18,8 +18,6 @@ const Picture = () => {
   const existingImage = JSON.parse(localStorage.getItem("images")) || [];
   const [image, setImage] = useState(existingImage);
   const [captured, setCaptured] = useState(false);
-  const [online,setOnline] = useState(true)
-  const [temp,setTemp] = useState({})
   let navigate = useNavigate();
 
 
@@ -58,7 +56,7 @@ const Picture = () => {
   // API CALLS AND SYNC
   
   const getApi = async () => {
-    if(online){
+    
     const res = await fetch(`https://api.jsonbin.io/b/${BIN_KEY}/latest`, {
       headers: {
         "X-MASTER-KEY": API_KEY,
@@ -67,20 +65,15 @@ const Picture = () => {
     const data = await res.json();
     
     return data.images;
-  }else{
-    return
-  }
+  
   };
 
 
 
   const updateApi = async (imageData) => {
-    if(online){
     let imgs =  await getApi();
     imgs.push(imageData)
     
-    
-
     const res = await fetch(`https://api.jsonbin.io/b/${BIN_KEY}/`, {
       method: "PUT",
       body: JSON.stringify({ images: imgs }),
@@ -90,13 +83,12 @@ const Picture = () => {
       },
     });
     const data = await res.json();
-    console.log(data);
-  }
+ 
   };
 
  
 
-  const takePhoto = async () => {
+  const takePhoto =  () => {
     const width = 350;
     const height = 350;
 
@@ -124,13 +116,8 @@ const Picture = () => {
     setImage([...image, imageData]);
     localStorage.setItem("images", JSON.stringify(imageData));
     NotificationHandler();
+    updateApi(imageData);
     
-    if(online){
-    await updateApi(imageData);
-    }else{
-      console.log("waiting to go online");
-      await updateApi(imageData);
-    }
   };
 
   const newPicture = () => {
@@ -148,12 +135,8 @@ const Picture = () => {
     localStorage.setItem("images", JSON.stringify(image));
     getStream();
 
-    if(!navigator.onLine){
-      setOnline(false)
-    }else{
-      setOnline(true)
-    }
-  }, [videoRef, captured, image,navigator.onLine]);
+    
+  }, [videoRef, captured]);
 
 
   let customClass = classNames({

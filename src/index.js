@@ -10,14 +10,11 @@ root.render(
   </React.StrictMode>
 );
 
-async function registerServiceWorker() {
+function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    try {
-      await navigator.serviceWorker.register('service-worker.js');
-      await navigator.serviceWorker.getRegistration()
-    } catch (error) {
-      console.log('Service worked not installed', error);
-    }
+      navigator.serviceWorker.register('../service-worker.js')
+      .then(() => { console.log('Registered service worker') })
+      .catch(() => { console.log('Could not register service worker') });
   }
 }
 

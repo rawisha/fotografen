@@ -1,11 +1,5 @@
 const cacheData = "appV1";
 
-const dataToCache = [
-    'manifest.json',
-    'static/js/bundle.js',
-    'favicon.ico',
-    '/gallery',
-    '/']
 
 self.addEventListener("install", (event) => {
 
@@ -29,7 +23,7 @@ self.addEventListener("fetch", (event) => {
 self.addEventListener('activate', (e) => {
     const cacheWhitelist = [];
     cacheWhitelist.push(CACHE_NAME);
-
+    console.log(e);
     e.waitUntil(
         caches.keys()
             .then((cacheNames) => Promise.all(
@@ -41,4 +35,5 @@ self.addEventListener('activate', (e) => {
             ))
     )
 })
+
 
